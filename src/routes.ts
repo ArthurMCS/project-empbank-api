@@ -9,6 +9,10 @@ import { getTransactionsController } from './controllers/getTransactionsControll
 
 const router = Router()
 
+router.get('/', (_req, res) => {
+   res.json('sucess!')
+})
+
 router.post('/register', userValidate, (request, response) => {
   return createUserController(request, response);
 });

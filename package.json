@@ -1,7 +1,7 @@
 {
   "name": "projeto-ampbank-backend-prisma",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.ts",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_module src/server.ts"
