@@ -9,7 +9,6 @@ type CreateUserData = {
     password: string;
 }
 
-
 export async function createUserService({email, password}: CreateUserData):Promise<User | Error> {
 
     await createUserSchema.validate({email, password})

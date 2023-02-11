@@ -8,5 +8,4 @@ export async function createUserController(req: Request, res: Response){
     } catch (err: any) {
         return res.status(401).json({message: err.message});
     }
-
 }

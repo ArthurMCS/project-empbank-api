@@ -12,10 +12,9 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     }
     try {
       const data = jwt.verify(authorization, process.env.JWT_SECRET as string);
-      req.body.id = data
+      req.body.payload = data
       next();
     } catch (error) {
-        console.log(error);
       return res.status(401).json({ message: INVALID_TOKEN });
     }
 };
