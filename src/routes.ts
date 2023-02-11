@@ -1,3 +1,4 @@
+import { userValidate } from './midlewares/userValidate';
 import { Router } from "express";
 import { createTransactionController } from "./controllers/createTransactionController";
 import { createUserController } from "./controllers/createUserController";
@@ -7,11 +8,11 @@ import { transactionValidate } from "./midlewares/transactionValidate";
 
 const router = Router()
 
-router.post('/register', (request, response) => {
+router.post('/register', userValidate, (request, response) => {
   return createUserController(request, response);
 });
 
-router.post('/login', (request, response) => {
+router.post('/login', userValidate, (request, response) => {
   return loginController(request, response);
 })
 

@@ -1,6 +1,5 @@
 import { User } from '@prisma/client'
 import { prisma } from '../prisma/client'
-import { createUserSchema } from '../schemas/userSchemas';
 
 const md5 = require('md5');
 
@@ -10,8 +9,6 @@ type CreateUserData = {
 }
 
 export async function createUserService({email, password}: CreateUserData):Promise<User | Error> {
-
-    await createUserSchema.validate({email, password})
 
     const userExists = await prisma.user.findUnique({
         where: {
