@@ -5,6 +5,7 @@ import { createUserController } from "./controllers/createUserController";
 import { loginController } from "./controllers/loginController";
 import { verifyToken } from "./midlewares/jwt";
 import { transactionValidate } from "./midlewares/transactionValidate";
+import { getTransactionsController } from './controllers/getTransactionsController';
 
 const router = Router()
 
@@ -18,6 +19,10 @@ router.post('/login', userValidate, (request, response) => {
 
 router.post('/transactions', verifyToken, transactionValidate, (request, response) => {
   return createTransactionController(request, response);
+})
+
+router.get('/transactions', verifyToken, (request, response) => {
+  return getTransactionsController(request, response);
 })
 
 export { router }
