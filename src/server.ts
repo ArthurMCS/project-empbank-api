@@ -7,6 +7,7 @@ import { loginController } from "./controllers/loginController";
 import { verifyToken } from "./midlewares/jwt";
 import { transactionValidate } from "./midlewares/transactionValidate";
 import { getTransactionsController } from './controllers/getTransactionsController';
+import { getValuesController } from './controllers/getValuesController';
 
 require('dotenv').config()
 const cors = require('cors')
@@ -37,6 +38,10 @@ router.post('/transactions', verifyToken, transactionValidate, (request, respons
 
 router.get('/transactions', verifyToken, (request, response) => {
   return getTransactionsController(request, response);
+})
+
+router.get('/values', verifyToken, (request, response) => {
+   return getValuesController(request, response);
 })
 
 app.listen(3333, () => console.log('listening on port 3333'));
