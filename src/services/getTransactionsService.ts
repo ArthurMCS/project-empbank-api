@@ -1,6 +1,14 @@
 import { prisma } from '../prisma/client'
 
-export async function getTransactionsService(userId: string, skip: number, take: number) {
+type Transaction = {
+    userId: string,
+    title: string,
+    value: number,
+    category: string,
+    created_at: Date,
+}
+
+export async function getTransactionsService(userId: string, skip: number, take: number, search: string) {
    try{
         const [transactions, total] = await prisma.$transaction([
             prisma.transaction.findMany({
@@ -13,9 +21,24 @@ export async function getTransactionsService(userId: string, skip: number, take:
             })
         ])
 
+        let transactionsFiltered: Transaction[] = []
+
+        if(search.length > 0){
+            const lowerSearch = search.toLowerCase()
+
+            const allTransactions = await prisma.transaction.findMany({
+                where: { userId },
+            })
+
+            transactionsFiltered = allTransactions.filter(transaction => (
+                transaction.title.toLowerCase().includes(lowerSearch) 
+                || transaction.category.toLowerCase().includes(lowerSearch)
+            ))
+        }
+
         const totalPage = Math.ceil(total / take)
 
-        return {total, totalPage, transactions}
+        return {total, totalPage, transactions, transactionsFiltered}
    } catch (err) {
      return err
    }
